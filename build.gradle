@@ -23,10 +23,6 @@ repositories {
         dirs 'lib'
     }
     jcenter()
-
-    ivy {
-        artifactPattern "http://dl.bintray.com/bsideup/thirdparty/[artifact]-[revision](-[classifier]).[ext]"
-    }
 }
 
 
@@ -64,6 +60,10 @@ task generateThrift(type : ru.trylogic.gradle.thrift.tasks.ThriftCompileTask) {
     generator = 'java:beans,hashcode'
     // destinationDir = file("$buildDir/generated-sources/java")
     destinationDir = file("src/main/java")
+}
+task swift(type:Exec,description:'just for test bat  task'){
+    workingDir '.'
+    commandLine 'cmd',"/c","executeEnhanceSoFileTask"
 }
 sourceSets {
     
@@ -118,11 +118,11 @@ dependencies {
 
     compile('org.springframework.boot:spring-boot-starter')
     compile('org.springframework.boot:spring-boot-starter-jdbc')
-    compile('org.springframework.boot:spring-boot-starter-data-jpa')
+    //compile('org.springframework.boot:spring-boot-starter-data-jpa')
 
     compile('org.springframework.boot:spring-boot-starter-web')
     compile('org.springframework.boot:spring-boot-starter-jetty')
-    compile('org.springframework.boot:spring-boot-starter-actuator')
+    //compile('org.springframework.boot:spring-boot-starter-actuator')
     // compile('ru.trylogic.spring.boot.thrift:thrift-spring-boot-starter:0.0.3')
     testCompile('org.springframework.boot:spring-boot-starter-test')
 
@@ -135,6 +135,12 @@ dependencies {
 
 	//compile("org.apache.thrift:libthrift:${thiriftVersion}")
 	
+	compile 'com.facebook.swift:swift-annotations:0.14.1'
+    compile 'com.facebook.swift:swift-service:0.14.1'
+    compile 'com.facebook.swift:swift-codec:0.14.1'
+    compile group: 'com.facebook.swift', name: 'swift2thrift-generator-cli', version: '0.23.1'
+    compile group: 'com.facebook.swift', name: 'swift-generator', version: '0.23.1'
+    
     compile("com.facebook.nifty:nifty-core:${niftyVersion}")
     compile fileTree(dir:'lib',include:'*.jar')
     

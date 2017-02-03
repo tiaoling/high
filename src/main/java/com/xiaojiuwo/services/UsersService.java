@@ -1,16 +1,15 @@
 package com.xiaojiuwo.services;
 
-import com.xiaojiuwo.models.User;
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
-import java.util.List;
+import com.xiaojiuwo.models.User;
 
 /**
  * Created by liuhaibao on 15/12/31.
  */
 @Service
-@Transactional
 public class UsersService extends BaseService<User>{
 
 

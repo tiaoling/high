@@ -16,16 +16,13 @@ spring:
       database: H2
       show_sql: true
       format_sql: true
-  thymeleaf:
-    cache: false
-
   pidfile: shared/tmp/pids/application.pid
 server:
   port: 10001
 
 logging:
     level:
-        org.springframework: 'OFF'
+        org.springframework: 'INFO'
         com.xiaojiuwo.models.mapper: 'DEBUG'
 
 

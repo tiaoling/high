@@ -3,18 +3,23 @@
  */
 package com.xiaojiuwo;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-import org.apache.thrift.TProcessor;
-import org.jboss.netty.channel.group.DefaultChannelGroup;
-import org.jboss.netty.util.HashedWheelTimer;
+import org.apache.thrift.protocol.TBinaryProtocol;
+import org.apache.thrift.protocol.TProtocolFactory;
 
-import com.facebook.nifty.core.NettyServerConfigBuilder;
 import com.facebook.nifty.core.NettyServerTransport;
 import com.facebook.nifty.core.ThriftServerDef;
 import com.facebook.nifty.core.ThriftServerDefBuilder;
-import com.xiaojiuwo.example.ThriftTestService;
+import com.facebook.swift.codec.ThriftCodecManager;
+import com.facebook.swift.service.ThriftEventHandler;
+import com.facebook.swift.service.ThriftServiceProcessor;
+import com.xiaojiuwo.services.InMemoryScribe;
+import com.xiaojiuwo.services.InMemoryScribeImpl;
 
 /**
  * @author liuhaibao
@@ -28,10 +33,22 @@ public class Server {
 	
 	public static void startServer() {
 	    // Create the handler
-	    ThriftTestService.Iface serviceInterface = new MyServiceHandler();
+	    //ThriftTestService.Iface serviceInterface = 
+	   //	MyService.Iface serviceInterface = new MyServiceHandler();
 
 	    // Create the processor
-	    TProcessor processor = new ThriftTestService.Processor<>(serviceInterface);
+	    //TProcessor processor = new MyService.Processor<>(serviceInterface);
+
+	    // Create the processor
+	    //TProcessor processor = new ThriftTestService.Processor<>(new InMemoryScribe());
+		
+		InMemoryScribe inMemoryScribe = new InMemoryScribeImpl();
+		TProtocolFactory protocolFactory  = new TBinaryProtocol.Factory();
+		ThriftCodecManager thriftCodecManager = new ThriftCodecManager();
+		 List list  = new ArrayList<>();
+		 list.add(inMemoryScribe);
+		 
+	    ThriftServiceProcessor processor = new ThriftServiceProcessor(thriftCodecManager, Arrays.<ThriftEventHandler>asList(), inMemoryScribe);
 
 	    // Build the server definition
 	    ThriftServerDef serverDef = new ThriftServerDefBuilder().withProcessor(processor)

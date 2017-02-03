@@ -1,6 +1,5 @@
 package com.xiaojiuwo.services;
 
-import com.xiaojiuwo.Application;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +8,7 @@ import org.springframework.context.annotation.ImportResource;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
-import javax.transaction.Transactional;
+import com.xiaojiuwo.Application;
 
 /**
  * Created by liuhaibao on 15/11/2.
@@ -19,7 +18,6 @@ import javax.transaction.Transactional;
 @SpringApplicationConfiguration(classes = Application.class)
 @WebAppConfiguration
 @ImportResource("classpath:config/applicationContext.xml")
-@Transactional
 public class UsersServiceTest {
 
     @Autowired
